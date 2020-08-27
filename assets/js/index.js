@@ -101,8 +101,8 @@ class User {
         return `hi, my name is ${this.name}`;
     }
 
-    sendMessage(string) {
-        console.log(`${this.name}: ${string}`);
+    sendMessage(message) {
+        console.log(`${this.name}: ${message}`);
     }
 }
 
@@ -119,3 +119,48 @@ class Admin extends User {
 const user = new User('Vanya', 25, true, false);
 const admin = new Admin('Vova', 45, true, false);
 
+/*====================================================================*/
+
+class MyString {
+    static reverse(string) {
+        return string.split('').reverse().join('');
+    }
+
+    static ucFirst(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
+    static ucWords(string) {
+        return string.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    }
+}
+
+class UserStudent {
+    constructor (name, surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
+    getFullName() {
+        return `${this.name} ${this.surname}`;
+    }
+}
+
+class Student extends UserStudent {
+    constructor(name, surname, year) {
+        super(name, surname);
+        this.year = year;
+    }
+
+    getCourse() {
+        let currentDate = new Date();
+        const course = currentDate.getFullYear() - this.year;
+        if (course > 5) {
+            throw new RangeError("It's not a student. Year of admission more than 5 years ago");
+        }
+        return course;
+    }
+}
+
+const user1 = new UserStudent('Vasya', 'Iva');
+const student = new Student('Vasya', 'Ivanov', 2020);
